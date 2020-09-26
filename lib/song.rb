@@ -49,8 +49,20 @@ class Song
   end
 
   def self.new_from_filename(filename)
-    song_name = filename.del(".mp3").split("-")[1]
-    song.artist_name = filename.split("-")[0]
-    self.create_by_name(song_name)
+    song_name = filename.split(" - ")[1][0..-5]
+    new_song = self.new_by_name(song_name)
+    new_song.artist_name = filename.split(" - ")[0]
+    new_song
+  end
+
+  def self.create_from_filename(filename)
+    song_name = filename.split(" - ")[1][0..-5]
+    new_song = self.create_by_name(song_name)
+    new_song.artist_name = filename.split(" - ")[0]
+    new_song
+  end
+
+  def self.destroy_all
+    @@all = []
   end
 end
