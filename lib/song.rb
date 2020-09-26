@@ -10,4 +10,43 @@ class Song
     self.class.all << self
   end
 
+  def self.create
+    song = Song.new
+    self.all<<song
+    song
+  end
+
+  def self.new_by_name(song_name)
+    song = Song.new
+    song.name = song_name
+    song
+  end
+
+  def self.create_by_name(song_name)
+    song = Song.new
+    song.name = song_name
+    self.all<<song
+    song
+  end
+
+  def self.find_by_name(song_name)
+    self.all.find {|song| song.name == song_name}
+  end
+
+  def self.find_or_create_by_name(song_name)
+    if self.find_by_name(song_name)
+      self.find_by_name(song_name)
+    else
+      self.create_by_name(song_name)
+    end
+  end
+
+  def self.alphabetical
+    alph_song_names = []
+    self.all.each {|song| alph_song_names << song.name}
+    alph_song_names.sort!
+    alph_song_names.map {|song_name| self.find_by_name(song_name)}
+  end
+
+  
 end
