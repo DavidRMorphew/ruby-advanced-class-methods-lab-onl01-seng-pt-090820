@@ -48,5 +48,9 @@ class Song
     alph_song_names.map {|song_name| self.find_by_name(song_name)}
   end
 
-  
+  def self.new_from_filename(filename)
+    song_name = filename.del(".mp3").split("-")[1]
+    song.artist_name = filename.split("-")[0]
+    self.create_by_name(song_name)
+  end
 end
